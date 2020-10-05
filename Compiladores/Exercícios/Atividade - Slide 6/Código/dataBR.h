@@ -1,11 +1,13 @@
 /***************************
  * Author: Felipe Derkian
- * Data: 04/10/2020
+ * Data: 05/10/2020
  * Disciplina: Compiladores
  * Trabalho: Slide 6 - Reconhecer 4 tipos de linguagens regulares
  ***************************/
 
+int tam_str_dataBR;
+int estado_dataBR;
+int c_dataBR;
+char char_current_dataBR;
 
-void check_tot_arguments(int argc);
-void check_file_name(char *file_name);
-void check_file_exists(FILE *file, char *file_name);
+int validateDataBRValue(char *str);

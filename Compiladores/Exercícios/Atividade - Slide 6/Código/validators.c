@@ -36,3 +36,13 @@ void check_file_name(char *file_name)
         exit(EXIT_FAILURE);
     }
 }
+
+
+void check_file_exists(FILE *file, char *file_name)
+{
+    if (!file)
+    {
+        printf("Arquivo: %s --- não encontrado.\n", file_name);
+        exit(EXIT_FAILURE);
+    } 
+}

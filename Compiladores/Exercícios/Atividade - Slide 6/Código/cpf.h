@@ -1,11 +1,13 @@
 /***************************
  * Author: Felipe Derkian
- * Data: 04/10/2020
+ * Data: 05/10/2020
  * Disciplina: Compiladores
  * Trabalho: Slide 6 - Reconhecer 4 tipos de linguagens regulares
  ***************************/
 
+int tam_str_cpf;
+int estado_cpf;
+int c_cpf;
+char char_current_cpf;
 
-void check_tot_arguments(int argc);
-void check_file_name(char *file_name);
-void check_file_exists(FILE *file, char *file_name);
+int validateCpfValue(char *str);
