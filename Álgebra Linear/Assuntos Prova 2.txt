@@ -1,0 +1,19 @@
+* Transformações lineares via matrizes
+
+* Núcleo e imagem de uma transformação linear
+
+* Produto (composição) de transformações lineares e Isomorfismos
+
+* Produto interno e norma
+
+* Ortogonalidade
+
+
+** Prova 2 (17/11/2020 - 17/11/2020)
+
+Será disponibilizado uma lista de questões no link Tarefas às 14 horas. 
+
+Os alunos deverão resolver as questões em uma folha branca (de preferência papel A4, para facilitar a visibilidade), 
+escanear, montar um único arquivo no formato pdf com as soluções e enviar no SIGAA (no mesmo link Tarefas).  
+
+O horário de envio expirará às 17 horas.
