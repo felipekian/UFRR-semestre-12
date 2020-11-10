@@ -30,12 +30,12 @@ bool analisadorSintatico();
 
 //gramatica (- == ->)
 char gramatica[LG][CG] = {
-    "E-E+M",
-    "E-M",
-    "M-MxP",
-    "M-P",
-    "P-(E)",
-    "P-V",
+    "E->E+M",
+    "E->M",
+    "M->MxP",
+    "M->P",
+    "P->(E)",
+    "P->V",
 };
 
 //tabelaDR
@@ -57,25 +57,23 @@ stack<char> pilha;
 //expressao a ser analisada
 char expression[] = "v+v*v\0";
 
-//return a posição da lista
-
+//função principal
 int main()
 {
     stringUppercase();
     pilha.push('$');
-    bool flag = analisadorSintatico();    
-
+    bool flag = analisadorSintatico();
     cout << (flag ? "Aceito" : "Nao aceito") << endl;
-
     return 0;
 }
 
 
+//parte do código que faz a analise se é redução, derivação ou falha
 bool analisadorSintatico()
 {
     bool flag = true;
 
-    for (int i = 0; expression[i] != '\0'; i++)
+    for (int i = 0; expression[i] != '\0' && flag; i++)
     {
 
         int linhaTabelaDR = getLinhaPilhaCorrentTabelaDR(pilha.top());
@@ -97,75 +95,61 @@ bool analisadorSintatico()
             char operacaoAnalise[100] = "";
             char validado[100] = "";
 
+            char analisePilha = pilha.top();
+            pilha.pop();
+
             while (true)
             {
-                char analisePilha = pilha.top();
-                pilha.pop();
                 operacaoAnalise[strlen(operacaoAnalise)] = analisePilha;
                 operacaoAnalise[strlen(operacaoAnalise)] = '\0';
-
-                cout << "OP_INICIO: " << operacaoAnalise << endl
-                     << endl;
-
-
+                
                 int posGramatica = getMathExpressionGramatica(operacaoAnalise);
                 char gr_selec[100] = "";
 
                 strcpy(gr_selec, gramatica[posGramatica]);
 
-                cout << "SELECIONADO >> " << gr_selec << endl
-                     << endl;
-
                 if (posGramatica != -1)
                 {
                     strcpy(validado, gr_selec);
-                    cout << "VALIDADO >> " << validado << endl;
-                    cout << "validado add pilha: " << validado[0] << endl;
-
                     pilha.push(validado[0]);
                     strcpy(validado, "");
                     break;
                 }
-                
             }
+            i--;
         }
         else if (operationCurrent == Q)
         {
             cout << "TIPO Q" << endl;
             flag = !flag;
-            break;
         }
     }
 
     return flag;
 }
 
+//verifica a expressão que combina com a que esta sendo analisada
 int getMathExpressionGramatica(char *current)
 {
     char *resposta;
-    cout << "CURRENT: " << current << endl;
-
+    
     for (int i = 0; i < LG; i++)
     {
         for (int j = 0; j < gramatica[i][j] != '\0'; j++)
         {
 
             /**
-             *  CASO ENCOONTRE SIMILARIDADE
+             *  CASO ENCONTRE SIMILARIDADE
              *  ANALISAR a PARTIR DAQUI
              */
             if (current[0] == gramatica[i][j])
             {
-                cout << "Entrei na selecao: " << gramatica[i] << endl;
-
                 bool flag_math = true;
                 int tam = strlen(gramatica[i]);
                 int tam_current = strlen(current);
 
                 for (int k = j, t = 0; gramatica[i][k] != '\0' && current[t] != '\0'; k++, t++)
                 {
-                    cout << ">> " << gramatica[i][k] << "  ---  " << current[t] << endl;
-
                     if (gramatica[i][k] != current[t])
                     {
                         flag_math = !flag_math;
@@ -175,8 +159,8 @@ int getMathExpressionGramatica(char *current)
 
                 if (flag_math)
                 {
-                    cout << "gramatica: " << gramatica[i] << endl;
-
+                    cout << "gramatica selecionada: " << gramatica[i] << "  |  Current: " << current << endl;
+                    //return a posição da lista
                     return i;
                 }
             }
